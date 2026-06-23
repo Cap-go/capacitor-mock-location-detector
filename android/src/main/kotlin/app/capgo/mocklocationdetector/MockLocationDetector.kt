@@ -40,7 +40,6 @@ class MockLocationDetector(private val context: Context) {
     )
 
     private val knownMockPackages = listOf(
-    private val knownMockPackages = listOf(
         "com.lexa.fakegps",
         "com.incorporateapps.fakegps.free",
         "com.incorporateapps.fakegps.fre",

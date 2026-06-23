@@ -17,6 +17,7 @@ struct MonitoringRequest {
     var emitOnlyOnChange: Bool
 }
 
+// swiftlint:disable:next type_body_length
 final class MockLocationDetector: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private let motionManager = CMMotionManager()

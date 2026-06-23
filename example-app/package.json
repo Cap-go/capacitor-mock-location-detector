@@ -1,0 +1,23 @@
+{
+  "name": "plugin-template-example",
+  "version": "1.0.0",
+  "description": "Example Capacitor app for @capgo/capacitor-mock-location-detector",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.3.4",
+    "@capacitor/android": "^8.3.4",
+    "@capacitor/ios": "^8.3.4",
+    "@capgo/capacitor-mock-location-detector": "file:..",
+    "@capgo/capacitor-updater": "^8.45.11"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.3.4",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.13"
+  }
+}

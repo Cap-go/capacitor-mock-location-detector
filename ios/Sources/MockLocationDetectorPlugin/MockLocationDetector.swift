@@ -14,6 +14,7 @@ struct AnalyzeRequest {
 struct MonitoringRequest {
     var intervalMs: Int
     var analyze: AnalyzeRequest
+    var emitOnlyOnChange: Bool
 }
 
 final class MockLocationDetector: NSObject, CLLocationManagerDelegate {
@@ -25,6 +26,7 @@ final class MockLocationDetector: NSObject, CLLocationManagerDelegate {
     private var lastMotionMagnitude: Double = 0
     private var monitoringTimer: Timer?
     private var monitoringRequest: MonitoringRequest?
+    private var lastEmittedFingerprint: String?
     weak var eventSink: MockLocationDetectorEventSink?
 
     private let defaultChecks = [
@@ -96,6 +98,7 @@ final class MockLocationDetector: NSObject, CLLocationManagerDelegate {
 
     func startMonitoring(_ request: MonitoringRequest) {
         monitoringRequest = request
+        lastEmittedFingerprint = nil
         monitoringTimer?.invalidate()
         let interval = max(5.0, Double(request.intervalMs) / 1000.0)
         monitoringTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
@@ -103,13 +106,14 @@ final class MockLocationDetector: NSObject, CLLocationManagerDelegate {
             Task { await self.emitMonitoringEvent(reason: "interval") }
         }
         locationManager.startUpdatingLocation()
-        Task { await emitMonitoringEvent(reason: "manual") }
+        Task { await emitMonitoringEvent(reason: "manual", force: true) }
     }
 
     func stopMonitoring() {
         monitoringTimer?.invalidate()
         monitoringTimer = nil
         monitoringRequest = nil
+        lastEmittedFingerprint = nil
         locationManager.stopUpdatingLocation()
     }
 
@@ -421,12 +425,36 @@ final class MockLocationDetector: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    private func emitMonitoringEvent(reason: String) async {
+    private func emitMonitoringEvent(reason: String, force: Bool = false) async {
         guard let monitoringRequest else { return }
         let payload = await analyze(monitoringRequest.analyze)
         var event = payload
         event["reason"] = reason
+
+        if !force && monitoringRequest.emitOnlyOnChange {
+            let fingerprint = integrityFingerprint(from: payload)
+            if fingerprint == lastEmittedFingerprint {
+                return
+            }
+            lastEmittedFingerprint = fingerprint
+        } else {
+            lastEmittedFingerprint = integrityFingerprint(from: payload)
+        }
+
         eventSink?.emitLocationIntegrityChanged(event)
+    }
+
+    private func integrityFingerprint(from payload: [String: Any]) -> String {
+        let checks = (payload["checks"] as? [[String: Any]]) ?? []
+        let triggered = checks
+            .filter { ($0["detected"] as? Bool) == true }
+            .compactMap { $0["id"] as? String }
+            .sorted()
+            .joined(separator: ",")
+        let isSimulated = (payload["isSimulated"] as? Bool) == true
+        let confidence = (payload["confidence"] as? String) ?? ""
+        let riskScore = (payload["riskScore"] as? Int) ?? 0
+        return "\(isSimulated)|\(confidence)|\(riskScore)|\(triggered)"
     }
 
     private func isDebuggerAttached() -> Bool {

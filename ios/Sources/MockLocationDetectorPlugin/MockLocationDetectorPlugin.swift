@@ -55,7 +55,10 @@ public class MockLocationDetectorPlugin: CAPPlugin, CAPBridgedPlugin, MockLocati
     @objc func startMonitoring(_ call: CAPPluginCall) {
         let analyze = parseAnalyzeRequest(call)
         let intervalMs = call.getInt("intervalMs") ?? 30000
-        implementation.startMonitoring(MonitoringRequest(intervalMs: intervalMs, analyze: analyze))
+        let emitOnlyOnChange = call.getBool("emitOnlyOnChange") ?? true
+        implementation.startMonitoring(
+            MonitoringRequest(intervalMs: intervalMs, analyze: analyze, emitOnlyOnChange: emitOnlyOnChange)
+        )
         call.resolve()
     }
 

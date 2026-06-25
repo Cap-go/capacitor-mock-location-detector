@@ -213,6 +213,11 @@ openDeveloperSettings() => Promise<void>
 startMonitoring(options?: MonitoringOptions | undefined) => Promise<void>
 ```
 
+Start background integrity monitoring on native platforms.
+
+Pair with {@link MockLocationDetectorPlugin.addListener} to receive
+`locationIntegrityChanged` events while the app is in the foreground.
+
 | Param         | Type                                                            |
 | ------------- | --------------------------------------------------------------- |
 | **`options`** | <code><a href="#monitoringoptions">MonitoringOptions</a></code> |
@@ -226,6 +231,8 @@ startMonitoring(options?: MonitoringOptions | undefined) => Promise<void>
 stopMonitoring() => Promise<void>
 ```
 
+Stop monitoring and release native location listeners.
+
 --------------------
 
 
@@ -235,10 +242,12 @@ stopMonitoring() => Promise<void>
 addListener(eventName: 'locationIntegrityChanged', listenerFunc: (event: LocationIntegrityChangedEvent) => void) => Promise<PluginListenerHandle>
 ```
 
-| Param              | Type                                                                                                        |
-| ------------------ | ----------------------------------------------------------------------------------------------------------- |
-| **`eventName`**    | <code>'locationIntegrityChanged'</code>                                                                     |
-| **`listenerFunc`** | <code>(event: <a href="#locationintegritychangedevent">LocationIntegrityChangedEvent</a>) =&gt; void</code> |
+Listen for integrity updates while {@link MockLocationDetectorPlugin.startMonitoring} is active.
+
+| Param              | Type                                                                                                        | Description                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| **`eventName`**    | <code>'locationIntegrityChanged'</code>                                                                     | Must be `'locationIntegrityChanged'`. |
+| **`listenerFunc`** | <code>(event: <a href="#locationintegritychangedevent">LocationIntegrityChangedEvent</a>) =&gt; void</code> |                                       |
 
 **Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
@@ -338,9 +347,10 @@ getPluginVersion() => Promise<PluginVersionResult>
 
 #### MonitoringOptions
 
-| Prop             | Type                |
-| ---------------- | ------------------- |
-| **`intervalMs`** | <code>number</code> |
+| Prop                   | Type                 | Description                                                                                                                                                                                                                  | Default            |
+| ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| **`intervalMs`**       | <code>number</code>  | How often to re-run checks while monitoring is active. Minimum 5000 ms. Defaults to 30000.                                                                                                                                   | <code>30000</code> |
+| **`emitOnlyOnChange`** | <code>boolean</code> | When `true`, `locationIntegrityChanged` is emitted only when `isSimulated`, `confidence`, `riskScore`, or triggered check IDs change. The first event after {@link MockLocationDetectorPlugin.startMonitoring} always fires. | <code>true</code>  |
 
 
 #### PluginListenerHandle
@@ -352,9 +362,14 @@ getPluginVersion() => Promise<PluginVersionResult>
 
 #### LocationIntegrityChangedEvent
 
-| Prop         | Type                                                     |
-| ------------ | -------------------------------------------------------- |
-| **`reason`** | <code>'interval' \| 'location_update' \| 'manual'</code> |
+Payload emitted by {@link MockLocationDetectorPlugin.addListener} when monitoring detects
+a new integrity snapshot.
+
+Register the listener before calling {@link MockLocationDetectorPlugin.startMonitoring}:
+
+| Prop         | Type                                                     | Description                                                                                                                                                                                                           |
+| ------------ | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`reason`** | <code>'interval' \| 'location_update' \| 'manual'</code> | Why this snapshot was emitted. - `manual` — first snapshot right after monitoring starts - `interval` — periodic re-check (`intervalMs`) - `location_update` — device location changed while monitoring (native only) |
 
 
 #### PluginVersionResult

@@ -113,6 +113,10 @@ class MockLocationDetector(private val context: Context) {
 
     fun getPluginVersion(): String = "native-android"
 
+    fun updateLastLocation(location: Location) {
+        lastLocation = location
+    }
+
     private fun resolveChecks(requested: List<String>?): List<String> {
         if (requested.isNullOrEmpty()) return defaultChecks
         return requested.filter { defaultChecks.contains(it) }

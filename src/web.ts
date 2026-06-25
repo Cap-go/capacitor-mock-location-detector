@@ -83,7 +83,8 @@ export class MockLocationDetectorWeb extends WebPlugin implements MockLocationDe
     throw this.unimplemented('openDeveloperSettings is not available on web.');
   }
 
-  async startMonitoring(_options?: MonitoringOptions): Promise<void> {
+  async startMonitoring(options?: MonitoringOptions): Promise<void> {
+    void options;
     throw this.unimplemented('startMonitoring is not available on web.');
   }
 

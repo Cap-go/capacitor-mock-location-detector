@@ -12,7 +12,7 @@ public class MockLocationDetectorPlugin: CAPPlugin, CAPBridgedPlugin, MockLocati
         CAPPluginMethod(name: "openDeveloperSettings", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "startMonitoring", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "stopMonitoring", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "getPluginVersion", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getPluginVersion", returnType: CAPPluginReturnPromise)
     ]
 
     private let implementation = MockLocationDetector()

@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.mocklocationdetector.example',
-  appName: 'Plugin Template Example',
+  appName: '@capgo/capacitor-mock-location-detector',
   webDir: 'dist',
   plugins: {
     CapacitorUpdater: {

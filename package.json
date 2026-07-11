@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-mock-location-detector",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "description": "Capacitor plugin for detecting simulated GPS locations and developer tooling that enables spoofing apps.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

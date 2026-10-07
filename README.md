@@ -1,13 +1,28 @@
 # @capgo/capacitor-mock-location-detector
 
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-mock-location-detector" alt="Capgo - Instant updates for Capacitor" /></a>
+Detect fake GPS and location spoofing in your Capacitor app with layered, App Store safe checks on iOS and Android. Protect check-ins, deliveries and location-based rewards.
+
+<a href="https://capgo.app/?ref=plugin_mock_location_detector"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-mock-location-detector" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_mock_location_detector"> ➡️ Get Instant updates for your App with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_mock_location_detector"> Missing a feature? We’ll build the plugin for you 💪</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_mock_location_detector">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_mock_location_detector">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
 
-Detect simulated GPS locations using layered, App Store-safe checks on iOS and Android.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-mock-location-detector/main/assets/github-social-preview.png" alt="@capgo/capacitor-mock-location-detector for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **Full analysis**: `analyze()` returns `isSimulated`, a confidence level, a `riskScore` and the triggered checks.
+- **Single checks**: `runCheck()` for the mock flag, mock location apps, developer options, ADB, simulator, location anomalies and motion correlation.
+- **Monitoring**: `startMonitoring()` and the `locationIntegrityChanged` event when the verdict changes.
+- **Capabilities**: `getCapabilities()` lists the checks the platform supports.
+- **Developer settings**: `openDeveloperSettings()` on Android.
+- **Platforms**: iOS and Android. Not available on web.
 
 ## Snapshot
 
@@ -89,7 +104,7 @@ if (result.isSimulated) {
   console.warn('Possible GPS spoofing detected', result.checks);
 }
 
-// Guide the user — apps cannot disable developer mode automatically
+// Guide the user, apps cannot disable developer mode automatically
 await MockLocationDetector.openDeveloperSettings();
 ```
 
@@ -116,13 +131,13 @@ await MockLocationDetector.startMonitoring({ intervalMs: 30000 });
 | Check ID | iOS | Android | Description |
 | --- | --- | --- | --- |
 | `system_mock_flag` | ✅ | ✅ | OS mock/simulation flag on the current location fix |
-| `developer_options` | — | ✅ | Android developer options enabled |
+| `developer_options` | - | ✅ | Android developer options enabled |
 | `developer_mode_indicators` | ✅ | ✅ | Indirect developer/debug build heuristics |
 | `mock_location_app` | ✅ | ✅ | Known spoof app packages / URL schemes |
-| `adb_enabled` | — | ✅ | USB debugging enabled |
-| `mock_provider_settings` | — | ✅ | Apps granted mock-location permission |
+| `adb_enabled` | - | ✅ | USB debugging enabled |
+| `mock_provider_settings` | - | ✅ | Apps granted mock-location permission |
 | `location_anomaly` | ✅ | ✅ | Impossible movement speed / teleport heuristic |
-| `motion_correlation` | ✅ | — | GPS movement without matching accelerometer activity |
+| `motion_correlation` | ✅ | - | GPS movement without matching accelerometer activity |
 | `simulator` | ✅ | ✅ | Simulator/emulator environment |
 
 ## Capgo Links

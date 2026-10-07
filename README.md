@@ -131,13 +131,13 @@ await MockLocationDetector.startMonitoring({ intervalMs: 30000 });
 | Check ID | iOS | Android | Description |
 | --- | --- | --- | --- |
 | `system_mock_flag` | ✅ | ✅ | OS mock/simulation flag on the current location fix |
-| `developer_options` |, | ✅ | Android developer options enabled |
+| `developer_options` | - | ✅ | Android developer options enabled |
 | `developer_mode_indicators` | ✅ | ✅ | Indirect developer/debug build heuristics |
 | `mock_location_app` | ✅ | ✅ | Known spoof app packages / URL schemes |
-| `adb_enabled` |, | ✅ | USB debugging enabled |
-| `mock_provider_settings` |, | ✅ | Apps granted mock-location permission |
+| `adb_enabled` | - | ✅ | USB debugging enabled |
+| `mock_provider_settings` | - | ✅ | Apps granted mock-location permission |
 | `location_anomaly` | ✅ | ✅ | Impossible movement speed / teleport heuristic |
-| `motion_correlation` | ✅ |, | GPS movement without matching accelerometer activity |
+| `motion_correlation` | ✅ | - | GPS movement without matching accelerometer activity |
 | `simulator` | ✅ | ✅ | Simulator/emulator environment |
 
 ## Capgo Links

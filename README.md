@@ -2,7 +2,7 @@
 
 Detect fake GPS and location spoofing in your Capacitor app with layered, App Store safe checks on iOS and Android. Protect check-ins, deliveries and location-based rewards.
 
-<a href="https://capgo.app/?ref=plugin_mock_location_detector"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-mock-location-detector" alt="Capgo - Instant updates for Capacitor" /></a>
+<a href="https://capgo.app/?ref=plugin_mock_location_detector"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-mock-location-detector" alt="Capgo - Build Capacitor apps with AI, ship updates instantly" /></a>
 
 <div align="center">
   <p><b>Capgo</b>: push fixes to your Capacitor users in minutes, build signed iOS and Android apps without a Mac, and roll back in one click.</p>
@@ -10,6 +10,8 @@ Detect fake GPS and location spoofing in your Capacitor app with layered, App St
   <p>14-day unlimited free trial. No credit card required</p>
   <p><a href="https://capgo.app/consulting/?ref=plugin_mock_location_detector">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
+
+> 🤖 **Building with an AI coding agent?** Install [Capgo skills](https://capgo.app/skills/?ref=plugin_mock_location_detector) so Claude Code, Codex, Cursor, Copilot, or Gemini CLI know how to install and use `@capgo/capacitor-mock-location-detector` in your Capacitor app: `npx skills add Cap-go/capgo-skills`. Then ask your agent: *"Add @capgo/capacitor-mock-location-detector to my Capacitor app and wire it up."* [Agent setup guides](https://capgo.app/agents/?ref=plugin_mock_location_detector) · [Hosted MCP](https://capgo.app/docs/ai/mcp/?ref=plugin_mock_location_detector)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Cap-go/capacitor-mock-location-detector/main/assets/github-social-preview.png" alt="@capgo/capacitor-mock-location-detector for Capacitor apps" width="300" />
